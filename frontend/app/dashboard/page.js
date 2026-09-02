@@ -1,7 +1,7 @@
 'use client';
 import { useAuth } from '@/context/AuthContext';
 import { useLang } from '@/context/LanguageContext';
-import { CalendarList, Banknote, Award, ArrowRight, Truck } from 'lucide-react';
+import { CalendarDays, Banknote, Award, ArrowRight, Truck } from 'lucide-react';
 import Link from 'next/link';
 
 export default function DashboardOverview() {
@@ -9,10 +9,10 @@ export default function DashboardOverview() {
   const { t } = useLang();
 
   // Mock data
-  const stats = { totalPickups: 3, totalEarnings: 1450, points: 80, nextPickup: 'Oct 25, 2024' };
+  const stats = { totalPickups: 3, totalEarnings: 1450, points: 80, nextPickup: 'Oct 25, 2026' };
   const recentBookings = [
-    { id: 'KB1042', date: '2024-10-15', items: 'Paper, Iron', status: 'Completed', amount: 450 },
-    { id: 'KB1048', date: '2024-10-25', items: 'Electronics', status: 'Pending', amount: null }
+    { id: 'KB1042', date: '2026-10-15', items: 'Paper, Iron', status: 'Completed', amount: 450 },
+    { id: 'KB1048', date: '2026-10-25', items: 'Electronics', status: 'Pending', amount: null }
   ];
 
   return (
@@ -31,7 +31,7 @@ export default function DashboardOverview() {
         <div className="bg-white p-5 rounded-2xl shadow-sm border border-gray-100">
           <div className="text-gray-500 text-sm font-medium mb-2">{t('dashboard', 'totalPickups')}</div>
           <div className="text-3xl font-bold text-gray-800 flex items-center gap-2">
-            <CalendarList className="text-blue-500 w-6 h-6"/> {stats.totalPickups}
+            <CalendarDays className="text-blue-500 w-6 h-6"/> {stats.totalPickups}
           </div>
         </div>
         <div className="bg-white p-5 rounded-2xl shadow-sm border border-gray-100">

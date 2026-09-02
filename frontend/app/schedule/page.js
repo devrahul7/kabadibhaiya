@@ -9,6 +9,7 @@ import { CheckCircle, Truck, MapPin, User, ChevronRight } from 'lucide-react';
 import api from '@/lib/axios';
 import toast from 'react-hot-toast';
 import Link from 'next/link';
+import PickupLocationPicker from '@/components/schedule/PickupLocationPicker';
 
 const step1Schema = z.object({
   name: z.string().min(2, 'Name is required'),
@@ -200,9 +201,18 @@ export default function SchedulePage() {
               <h2 className="text-2xl font-bold mb-6 flex items-center gap-2"><MapPin className="text-primary"/> Pickup Details</h2>
               <form onSubmit={form2.handleSubmit(onStep2Submit)} className="space-y-5">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Exact Address *</label>
-                  <input {...form2.register('address')} className={`w-full p-3 rounded-xl border bg-gray-50 focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none ${form2.formState.errors.address ? 'border-red-500' : 'border-gray-200'}`} placeholder="House No, Street, Ward, Landmark" />
-                  {form2.formState.errors.address && <p className="text-red-500 text-xs mt-1">{form2.formState.errors.address.message}</p>}
+                  <label className="block text-sm font-bold text-gray-800 mb-2">
+                    Exact Pickup Address (Search, GPS or Pin on Map) *
+                  </label>
+                  <PickupLocationPicker
+                    value={form2.watch('address') || ''}
+                    onChange={(val) => form2.setValue('address', val, { shouldValidate: true })}
+                    city={form1.watch('city')}
+                    onCityChange={(newCity) => form1.setValue('city', newCity)}
+                  />
+                  {form2.formState.errors.address && (
+                    <p className="text-red-500 text-xs mt-1">{form2.formState.errors.address.message}</p>
+                  )}
                 </div>
 
                 <div className="grid sm:grid-cols-2 gap-5">
@@ -225,16 +235,64 @@ export default function SchedulePage() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">What are you selling? (Select all that apply) *</label>
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-                    {['Paper', 'Cardboard', 'Plastic', 'Iron', 'Copper', 'Aluminium', 'Electronics', 'Glass'].map(item => (
-                      <label key={item} className="flex items-center gap-2 bg-gray-50 border border-gray-200 p-3 rounded-xl cursor-pointer hover:bg-primary-light hover:border-primary transition-colors">
-                        <input type="checkbox" value={item} {...form2.register('items')} className="w-4 h-4 text-primary focus:ring-primary border-gray-300 rounded" />
-                        <span className="text-sm font-medium text-gray-700">{item}</span>
+                  <label className="block text-sm font-bold text-gray-800 mb-2">
+                    What scrap are you selling? (Select all that apply) *
+                  </label>
+                  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3.5">
+                    {[
+                      { id: 'Iron', name: 'Iron & Steel', nameNp: 'फलामका डण्डी/पाता', sub: 'Construction rods, pipes, gates', emoji: '🔩', image: '/items/iron.jpg' },
+                      { id: 'Copper', name: 'Copper Wire', nameNp: 'तामाको तार र क्वाइल', sub: 'AC coils, motor winding, wire', emoji: '⚡', image: '/items/copper.jpg' },
+                      { id: 'Brass', name: 'Brass / Bronze', nameNp: 'पित्तल र काँस (भाँडा)', sub: 'Gagri, thali, taps, craft', emoji: '🪙', image: '/items/brass.jpg' },
+                      { id: 'Aluminium', name: 'Aluminium Cans', nameNp: 'एल्युमिनियम क्यान/सेक्सन', sub: 'Soda cans, window frames', emoji: '🥫', image: '/items/aluminium.jpg' },
+                      { id: 'Paper', name: 'Newspaper & Books', nameNp: 'पत्रपत्रिका र किताब', sub: 'Gorkhapatra, textbooks, copies', emoji: '📰', image: '/items/newspaper.jpg' },
+                      { id: 'Cardboard', name: 'Carton Boxes', nameNp: 'कार्टुन र पार्सल बक्स', sub: 'Delivery cartons, brown boxes', emoji: '📦', image: '/items/cardboard.jpg' },
+                      { id: 'Plastic', name: 'PET Water Bottles', nameNp: 'पानीका प्लास्टिक बोतल', sub: 'Mineral water & soda bottles', emoji: '♻️', image: '/items/plastic.jpg' },
+                      { id: 'HardPlastic', name: 'Hard Plastic', nameNp: 'कडा प्लास्टिक (कुर्सी/बाल्टिन)', sub: 'Plastic chairs, buckets, crates', emoji: '🪑', image: '/items/hardplastic.jpg' },
+                      { id: 'Electronics', name: 'E-Waste / Laptops', nameNp: 'कम्प्युटर र ल्यापटप', sub: 'CPUs, motherboards, PCs', emoji: '💻', image: '/items/ewaste.jpg' },
+                      { id: 'Mobile', name: 'Mobile Phones', nameNp: 'मोबाइल फोन', sub: 'Old smartphones & chargers', emoji: '📱', image: '/items/mobile.jpg' },
+                      { id: 'Appliances', name: 'Old Appliances', nameNp: 'पुराना फ्रिज/वासिङ मेसिन', sub: 'Fridges, washing machines', emoji: '🧊', image: '/items/appliances.jpg' },
+                      { id: 'Batteries', name: 'Lead Batteries', nameNp: 'इन्भर्टर र गाडीको ब्याट्री', sub: 'Heavy inverter/car batteries', emoji: '🔋', image: '/items/battery.jpg' },
+                      { id: 'Glass', name: 'Beer & Glass Bottles', nameNp: 'बियरका सिसा बोतल', sub: 'Tuborg/Gorkha beer bottles', emoji: '🍶', image: '/items/glass.jpg' },
+                      { id: 'Steel', name: 'Stainless Steel', nameNp: 'स्टिलका भाँडाकुँडा', sub: 'Kitchen utensils, sink, plates', emoji: '🍴', image: '/items/stainless.jpg' },
+                      { id: 'Wires', name: 'Wires & Cables', nameNp: 'बिजुलीको तार र केबल', sub: 'Electric copper/aluminium cables', emoji: '🔌', image: '/items/wires.jpg' },
+                      { id: 'Zinc', name: 'Zinc Sheets', nameNp: 'जस्ताका पाता', sub: 'Corrugated roofing tin/zinc', emoji: '🏗️', image: '/items/zinc.jpg' },
+                    ].map((item) => (
+                      <label
+                        key={item.id}
+                        className="flex flex-col rounded-2xl border border-gray-200 overflow-hidden cursor-pointer hover:border-primary hover:shadow-md transition-all group bg-white shadow-xs relative"
+                      >
+                        <div className="h-24 w-full overflow-hidden bg-gray-100 relative">
+                          <img
+                            src={item.image}
+                            alt={item.name}
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                            onError={(e) => { e.target.src = '/items/iron.jpg'; }}
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
+
+                          <div className="absolute top-1.5 right-2 bg-white/95 rounded-md p-1 shadow-sm">
+                            <input
+                              type="checkbox"
+                              value={item.id}
+                              {...form2.register('items')}
+                              className="w-4 h-4 text-primary focus:ring-primary border-gray-300 rounded"
+                            />
+                          </div>
+                          <div className="absolute bottom-1 left-1.5 bg-black/65 backdrop-blur-xs text-white text-[9px] font-bold px-1.5 py-0.5 rounded-full shadow-sm">
+                            {item.emoji} {item.nameNp}
+                          </div>
+                        </div>
+
+                        <div className="p-2.5 flex flex-col flex-1 justify-between">
+                          <div className="text-xs font-extrabold text-gray-800 leading-tight">{item.name}</div>
+                          <div className="text-[10px] text-gray-400 mt-1 line-clamp-1">{item.sub}</div>
+                        </div>
                       </label>
                     ))}
                   </div>
-                  {form2.formState.errors.items && <p className="text-red-500 text-xs mt-1">{form2.formState.errors.items.message}</p>}
+                  {form2.formState.errors.items && (
+                    <p className="text-red-500 text-xs mt-1.5">{form2.formState.errors.items.message}</p>
+                  )}
                 </div>
 
                 <div className="grid sm:grid-cols-2 gap-5">
@@ -312,11 +370,11 @@ export default function SchedulePage() {
                 </div>
                 
                 <div className="flex gap-4">
-                  <a href={`https://wa.me/9779800000000?text=Hi! I want to schedule a pickup. Name: ${formData.name}, Address: ${formData.address}`} target="_blank" rel="noreferrer" className="flex-1 bg-[#25D366] hover:bg-[#1ebe5a] text-white py-3 rounded-xl font-bold transition-colors flex justify-center items-center">
-                    WhatsApp
+                  <a href={`https://wa.me/97797426869215?text=Hi! I want to schedule a pickup. Name: ${formData.name || ''}, Address: ${formData.address || ''}`} target="_blank" rel="noreferrer" className="flex-1 bg-[#25D366] hover:bg-[#1ebe5a] text-white py-3 rounded-xl font-bold transition-colors flex justify-center items-center gap-1.5 text-sm">
+                    <span>💬</span> WhatsApp
                   </a>
-                  <a href="viber://chat?number=9779800000000" target="_blank" rel="noreferrer" className="flex-1 bg-[#7360F2] hover:bg-[#6050ce] text-white py-3 rounded-xl font-bold transition-colors flex justify-center items-center">
-                    Viber
+                  <a href="viber://chat?number=97797426869215" target="_blank" rel="noreferrer" className="flex-1 bg-[#7360F2] hover:bg-[#6050ce] text-white py-3 rounded-xl font-bold transition-colors flex justify-center items-center gap-1.5 text-sm">
+                    <span>🟣</span> Viber
                   </a>
                 </div>
                 

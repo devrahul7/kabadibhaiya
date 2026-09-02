@@ -7,14 +7,17 @@ const bookingController = require('../controllers/booking.controller');
 
 const createBookingSchema = z.object({
   name: z.string().min(2, 'Name is required'),
-  phone: z.string().regex(/^(97|98)\d{8}$/, 'Must be a valid Nepal phone number starting with 97 or 98'),
-  address: z.string().min(5, 'Address is required'),
+  phone: z.string().regex(/^(97|98)\d{8,9}$/, 'Must be a valid Nepal phone number starting with 97 or 98'),
+  address: z.string().min(3, 'Address is required'),
+  landmark: z.string().optional(),
+  lat: z.number().optional(),
+  lng: z.number().optional(),
   city: z.enum(['Kathmandu', 'Lalitpur', 'Bhaktapur']),
-  date: z.string().refine(val => new Date(val) >= new Date(new Date().setHours(0,0,0,0)), 'Date cannot be in the past'),
-  timeSlot: z.enum(['9-11', '11-1', '2-4', '4-6']),
+  date: z.string().min(1, 'Date is required'),
+  timeSlot: z.string().min(1, 'Time slot is required'),
   items: z.array(z.string()).min(1, 'Select at least one item'),
   estimatedWeight: z.string().optional(),
-  paymentMethod: z.enum(['cash', 'esewa', 'khalti', 'imepay', 'bank']).optional(),
+  paymentMethod: z.string().optional(),
   notes: z.string().max(500).optional()
 });
 

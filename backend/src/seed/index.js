@@ -7,7 +7,7 @@ const User = require('../models/User');
 
 const seedDB = async () => {
   try {
-    await mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true });
+    await mongoose.connect(process.env.MONGO_URI);
     console.log('MongoDB Connected for Seeding');
 
     await Price.deleteMany();
@@ -15,30 +15,61 @@ const seedDB = async () => {
     console.log('Cleared existing Prices and BlogPosts');
 
     const prices = [
-      { name: 'Iron/Steel', nameNp: 'फलाम/स्टिल', category: 'metal', price: 28, trend: 'stable' },
-      { name: 'Copper', nameNp: 'तामा', category: 'metal', price: 550, trend: 'up' },
-      { name: 'Brass', nameNp: 'पित्तल', category: 'metal', price: 380, trend: 'stable' },
-      { name: 'Aluminium', nameNp: 'एल्युमिनियम', category: 'metal', price: 95, trend: 'up' },
-      { name: 'Stainless Steel', nameNp: 'खिया नलाग्ने स्टिल', category: 'metal', price: 45, trend: 'stable' },
-      { name: 'Lead', nameNp: 'सिसा (धातु)', category: 'metal', price: 140, trend: 'down' },
-      { name: 'Zinc', nameNp: 'जस्ता', category: 'metal', price: 85, trend: 'stable' },
-      { name: 'Newspaper', nameNp: 'पत्रपत्रिका', category: 'paper', price: 15, trend: 'stable' },
-      { name: 'Books/Notebooks', nameNp: 'किताब/कापी', category: 'paper', price: 11, trend: 'down' },
-      { name: 'Cardboard', nameNp: 'कार्टुन', category: 'paper', price: 9, trend: 'stable' },
-      { name: 'White Paper', nameNp: 'सेतो कागज', category: 'paper', price: 21, trend: 'up' },
-      { name: 'Magazines', nameNp: 'म्यागजिन', category: 'paper', price: 9, trend: 'stable' },
-      { name: 'PET Bottles', nameNp: 'प्लास्टिक बोतल', category: 'plastic', price: 11, trend: 'stable' },
-      { name: 'Hard Plastic', nameNp: 'कडा प्लास्टिक', category: 'plastic', price: 9, trend: 'stable' },
-      { name: 'Plastic Bags', nameNp: 'प्लास्टिक झोला', category: 'plastic', price: 4, trend: 'down' },
-      { name: 'HDPE', nameNp: 'एच.डी.पी.इ', category: 'plastic', price: 16, trend: 'up' },
-      { name: 'Computers/Laptops', nameNp: 'कम्प्युटर/ल्यापटप', category: 'electronics', price: 90, trend: 'stable' },
-      { name: 'Mobile Phones', nameNp: 'मोबाइल फोन', category: 'electronics', price: 175, trend: 'up' },
-      { name: 'TV/Monitors', nameNp: 'टिभी/मोनिटर', category: 'electronics', price: 40, trend: 'down' },
-      { name: 'Refrigerators', nameNp: 'फ्रिज', category: 'electronics', price: 25, trend: 'stable' },
-      { name: 'Washing Machines', nameNp: 'वाशिङ मेसिन', category: 'electronics', price: 20, trend: 'stable' },
-      { name: 'Wires/Cables', nameNp: 'तार/केबल', category: 'electronics', price: 135, trend: 'up' },
-      { name: 'Glass Bottles', nameNp: 'सिसा बोतल', category: 'glass', price: 2, trend: 'stable' },
-      { name: 'Glass Sheets', nameNp: 'सिसा पाता', category: 'glass', price: 1, trend: 'down' },
+      // METALS
+      { name: 'Iron/Steel', nameNp: 'फलाम/स्टिल', category: 'metal', price: 28, unit: 'kg', trend: 'stable', emoji: '🔩',
+        imageUrl: '/items/iron.jpg' },
+      { name: 'Copper Wire', nameNp: 'तामाको तार', category: 'metal', price: 550, unit: 'kg', trend: 'up', emoji: '⚡',
+        imageUrl: '/items/copper.jpg' },
+      { name: 'Brass (Pittal)', nameNp: 'पित्तल र काँस', category: 'metal', price: 380, unit: 'kg', trend: 'stable', emoji: '🪙',
+        imageUrl: '/items/brass.jpg' },
+      { name: 'Aluminium', nameNp: 'एल्युमिनियम क्यान', category: 'metal', price: 95, unit: 'kg', trend: 'up', emoji: '🥫',
+        imageUrl: '/items/aluminium.jpg' },
+      { name: 'Stainless Steel', nameNp: 'खिया नलाग्ने स्टिल', category: 'metal', price: 45, unit: 'kg', trend: 'stable', emoji: '🍴',
+        imageUrl: '/items/stainless.jpg' },
+      { name: 'Lead', nameNp: 'सिसा (धातु)', category: 'metal', price: 140, unit: 'kg', trend: 'down', emoji: '⚙️',
+        imageUrl: '/items/battery.jpg' },
+      { name: 'Zinc / Sheets', nameNp: 'जस्ता पाता', category: 'metal', price: 85, unit: 'kg', trend: 'stable', emoji: '🏗️',
+        imageUrl: '/items/zinc.jpg' },
+      // PAPER
+      { name: 'Newspaper', nameNp: 'पत्रपत्रिका', category: 'paper', price: 15, unit: 'kg', trend: 'stable', emoji: '📰',
+        imageUrl: '/items/newspaper.jpg' },
+      { name: 'Books/Notebooks', nameNp: 'किताब/कापी', category: 'paper', price: 11, unit: 'kg', trend: 'down', emoji: '📚',
+        imageUrl: '/items/newspaper.jpg' },
+      { name: 'Cardboard', nameNp: 'कार्टुन', category: 'paper', price: 9, unit: 'kg', trend: 'stable', emoji: '📦',
+        imageUrl: '/items/cardboard.jpg' },
+      { name: 'White Paper', nameNp: 'सेतो कागज', category: 'paper', price: 21, unit: 'kg', trend: 'up', emoji: '📄',
+        imageUrl: '/items/newspaper.jpg' },
+      { name: 'Magazines', nameNp: 'म्यागजिन', category: 'paper', price: 9, unit: 'kg', trend: 'stable', emoji: '📖',
+        imageUrl: '/items/newspaper.jpg' },
+      // PLASTIC
+      { name: 'PET Bottles', nameNp: 'प्लास्टिक बोतल', category: 'plastic', price: 11, unit: 'kg', trend: 'stable', emoji: '♻️',
+        imageUrl: '/items/plastic.jpg' },
+      { name: 'Hard Plastic', nameNp: 'कडा प्लास्टिक (कुर्सी/बाल्टिन)', category: 'plastic', price: 9, unit: 'kg', trend: 'stable', emoji: '🪑',
+        imageUrl: '/items/hardplastic.jpg' },
+      { name: 'Plastic Bags', nameNp: 'प्लास्टिक झोला', category: 'plastic', price: 4, unit: 'kg', trend: 'down', emoji: '🛍️',
+        imageUrl: '/items/plastic.jpg' },
+      { name: 'HDPE Containers', nameNp: 'एच.डी.पी.इ (जार/ड्रम)', category: 'plastic', price: 16, unit: 'kg', trend: 'up', emoji: '🧴',
+        imageUrl: '/items/plastic.jpg' },
+      // ELECTRONICS
+      { name: 'Computers/Laptops', nameNp: 'कम्प्युटर/ल्यापटप', category: 'electronics', price: 90, unit: 'kg', trend: 'stable', emoji: '💻',
+        imageUrl: '/items/ewaste.jpg' },
+      { name: 'Mobile Phones', nameNp: 'मोबाइल फोन', category: 'electronics', price: 175, unit: 'kg', trend: 'up', emoji: '📱',
+        imageUrl: '/items/mobile.jpg' },
+      { name: 'TV/Monitors', nameNp: 'टिभी/मोनिटर', category: 'electronics', price: 40, unit: 'kg', trend: 'down', emoji: '📺',
+        imageUrl: '/items/ewaste.jpg' },
+      { name: 'Refrigerators', nameNp: 'फ्रिज', category: 'electronics', price: 25, unit: 'kg', trend: 'stable', emoji: '🧊',
+        imageUrl: '/items/appliances.jpg' },
+      { name: 'Washing Machines', nameNp: 'वाशिङ मेसिन', category: 'electronics', price: 20, unit: 'kg', trend: 'stable', emoji: '🧺',
+        imageUrl: '/items/appliances.jpg' },
+      { name: 'Wires/Cables', nameNp: 'तार/केबल', category: 'electronics', price: 135, unit: 'kg', trend: 'up', emoji: '🔌',
+        imageUrl: '/items/wires.jpg' },
+      { name: 'Old Batteries', nameNp: 'ब्याट्री (इन्भर्टर/गाडी)', category: 'electronics', price: 140, unit: 'kg', trend: 'up', emoji: '🔋',
+        imageUrl: '/items/battery.jpg' },
+      // GLASS
+      { name: 'Glass Bottles', nameNp: 'सिसा बोतल', category: 'glass', price: 2, unit: 'piece', trend: 'stable', emoji: '🍶',
+        imageUrl: '/items/glass.jpg' },
+      { name: 'Glass Sheets', nameNp: 'सिसा पाता', category: 'glass', price: 1, unit: 'kg', trend: 'down', emoji: '🪟',
+        imageUrl: '/items/glass.jpg' },
     ].map(p => ({ ...p, history: [p.price, p.price, p.price, p.price, p.price, p.price, p.price] }));
 
     await Price.insertMany(prices);
@@ -56,19 +87,27 @@ const seedDB = async () => {
     await BlogPost.insertMany(blogs);
     console.log('Blogs Seeded');
 
-    const adminExists = await User.findOne({ email: 'admin@kabadibhaiya.com.np' });
-    if (!adminExists) {
-      const passwordHash = await bcrypt.hash('Admin@1234', 12);
-      await User.create({
-        name: 'Super Admin',
-        phone: '9800000000',
-        email: 'admin@kabadibhaiya.com.np',
+    // Upsert Admin user with official email and phone
+    const adminEmail = process.env.ADMIN_DEFAULT_EMAIL || 'nepalikabadibhaiya@gmail.com';
+    const adminPhone = process.env.ADMIN_DEFAULT_PHONE || '97426869215';
+    const passwordHash = await bcrypt.hash(process.env.ADMIN_DEFAULT_PASSWORD || 'Admin@1234', 12);
+
+    await User.findOneAndUpdate(
+      { $or: [{ email: adminEmail }, { phone: adminPhone }, { username: 'admin' }] },
+      {
+        name: 'KabadiBhaiya Admin',
+        username: 'admin',
+        phone: adminPhone,
+        email: adminEmail,
         passwordHash,
         role: 'admin',
-        city: 'Kathmandu'
-      });
-      console.log('Admin user created');
-    }
+        city: 'Kathmandu',
+        isPhoneVerified: true,
+        loyaltyPoints: 100,
+      },
+      { upsert: true, new: true }
+    );
+    console.log(`Admin user ready: ${adminEmail} / ${adminPhone} / admin`);
 
     console.log('Seeding Complete');
     process.exit(0);

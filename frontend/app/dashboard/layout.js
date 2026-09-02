@@ -4,7 +4,9 @@ import { useRouter, usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { useAuth } from '@/context/AuthContext';
 import { useLang } from '@/context/LanguageContext';
-import { LayoutDashboard, CalendarList, Banknote, Award, User, LogOut, Loader2 } from 'lucide-react';
+import { getAvatarUrl } from '@/lib/apiConfig';
+import { LayoutDashboard, CalendarDays, Banknote, Award, User, LogOut, Loader2 } from 'lucide-react';
+
 
 export default function DashboardLayout({ children }) {
   const { user, loading, logout } = useAuth();
@@ -24,7 +26,7 @@ export default function DashboardLayout({ children }) {
 
   const navItems = [
     { href: '/dashboard', label: t('dashboard', 'overview'), icon: LayoutDashboard },
-    { href: '/dashboard/bookings', label: t('dashboard', 'myBookings'), icon: CalendarList },
+    { href: '/dashboard/bookings', label: t('dashboard', 'myBookings'), icon: CalendarDays },
     // { href: '/dashboard/earnings', label: t('dashboard', 'earnings'), icon: Banknote },
     { href: '/dashboard/loyalty', label: t('dashboard', 'loyalty'), icon: Award },
     { href: '/dashboard/profile', label: t('dashboard', 'profile'), icon: User },
@@ -39,16 +41,29 @@ export default function DashboardLayout({ children }) {
           <aside className="hidden md:block w-72 shrink-0">
             <div className="bg-white rounded-3xl p-6 shadow-sm border border-gray-100 sticky top-24">
               <div className="flex items-center gap-4 mb-8 pb-8 border-b border-gray-100">
-                <div className="w-14 h-14 rounded-full bg-primary-light text-primary flex items-center justify-center text-2xl font-bold">
-                  {user.name.charAt(0).toUpperCase()}
+                <div className="w-14 h-14 rounded-full bg-primary/10 text-primary flex items-center justify-center text-2xl font-bold overflow-hidden border border-primary/20 flex-shrink-0">
+                  {user.googlePicture ? (
+                    <img src={user.googlePicture} alt={user.name} className="w-full h-full object-cover" />
+                  ) : user.hasProfileImage ? (
+                    <img
+                      src={getAvatarUrl(user.id || user._id, user.avatarVersion || 1)}
+                      alt={user.name}
+                      className="w-full h-full object-cover"
+                      onError={(e) => { e.target.style.display = 'none'; }}
+                    />
+
+                  ) : (
+                    user.name.charAt(0).toUpperCase()
+                  )}
                 </div>
-                <div>
-                  <h3 className="font-bold text-gray-800 line-clamp-1">{user.name}</h3>
-                  <div className="flex items-center gap-1 text-xs font-semibold text-yellow-600 bg-yellow-50 px-2 py-1 rounded w-fit mt-1 border border-yellow-200">
-                    <Award className="w-3 h-3"/> Bronze Member
+                <div className="min-w-0">
+                  <h3 className="font-bold text-gray-800 truncate text-base">{user.name}</h3>
+                  <div className="flex items-center gap-1 text-xs font-semibold text-primary bg-primary/10 px-2 py-0.5 rounded-full w-fit mt-1 border border-primary/20">
+                    <Award className="w-3 h-3"/> {user.tier ? (user.tier.charAt(0).toUpperCase() + user.tier.slice(1)) : 'Bronze'} Member
                   </div>
                 </div>
               </div>
+
 
               <nav className="flex flex-col gap-2">
                 {navItems.map(item => {

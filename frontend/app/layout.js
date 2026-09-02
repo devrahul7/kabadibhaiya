@@ -17,6 +17,9 @@ export const metadata = {
   title: 'KabadiBhaiya - Scrap Recycling in Nepal',
   description: 'Schedule a free pickup for your scrap in Kathmandu, Lalitpur, and Bhaktapur.',
   manifest: '/manifest.json',
+};
+
+export const viewport = {
   themeColor: '#e67e22',
 };
 

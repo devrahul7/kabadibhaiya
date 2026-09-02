@@ -19,9 +19,15 @@ export default function Footer() {
             </div>
             <p className="text-gray-400 mb-6">{t('footer', 'tagline')}</p>
             <div className="flex flex-col gap-3 text-sm text-gray-300">
-              <div className="flex items-center gap-2"><Phone className="h-4 w-4 text-accent" /> +977-9800000000</div>
-              <div className="flex items-center gap-2"><Mail className="h-4 w-4 text-accent" /> info@kabadibhaiya.com</div>
-              <div className="flex items-center gap-2"><MapPin className="h-4 w-4 text-accent" /> Kathmandu, Nepal</div>
+              <a href="tel:97426869215" className="flex items-center gap-2 hover:text-primary transition-colors">
+                <Phone className="h-4 w-4 text-accent" /> +977-97426869215
+              </a>
+              <a href="mailto:nepalikabadibhaiya@gmail.com" className="flex items-center gap-2 hover:text-primary transition-colors">
+                <Mail className="h-4 w-4 text-accent" /> nepalikabadibhaiya@gmail.com
+              </a>
+              <div className="flex items-center gap-2">
+                <MapPin className="h-4 w-4 text-accent" /> Kathmandu, Lalitpur & Bhaktapur
+              </div>
             </div>
           </div>
 

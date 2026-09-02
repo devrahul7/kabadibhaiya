@@ -36,14 +36,15 @@ Service details:
 - Cities: Kathmandu, Lalitpur (Patan), Bhaktapur
 - Working hours: Sunday to Friday, 9:00 AM to 6:00 PM NPT
 - Saturday: Closed
-- Phone: +977-9800000000
-- WhatsApp: +977-9800000000
+- Phone: +977-97426869215
+- WhatsApp: +977-97426869215
+- Email: nepalikabadibhaiya@gmail.com
 - Pickup is completely FREE — no charges
 - You receive instant payment when kabadi is collected
 
 Be friendly, helpful, and concise. Use simple language. You can respond in both English and Nepali (नेपाली) — detect the user's language and respond accordingly. Always encourage users to schedule a free pickup or check the live prices page.
 
-Never make up information not listed above. If you don't know something, say so honestly and suggest calling +977-9800000000.`;
+Never make up information not listed above. If you don't know something, say so honestly and suggest calling +977-97426869215 or WhatsApp at +977-97426869215.`;
 
 exports.chat = async (req, res, next) => {
   try {
@@ -54,7 +55,7 @@ exports.chat = async (req, res, next) => {
       return res.status(400).json({ success: false, message: 'Message too long (max 500 chars)' });
 
     if (!genAI) {
-      return res.json({ success: true, reply: "I am currently undergoing maintenance. Please call +977-9800000000." });
+      return res.json({ success: true, reply: "I am currently undergoing maintenance. Please call +977-97426869215 or WhatsApp us." });
     }
 
     const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
@@ -76,6 +77,6 @@ exports.chat = async (req, res, next) => {
     res.json({ success: true, reply });
   } catch (err) {
     console.error('Gemini error:', err.message);
-    res.status(500).json({ success: false, message: 'Chatbot temporarily unavailable. Please call +977-9800000000.' });
+    res.status(500).json({ success: false, message: 'Chatbot temporarily unavailable. Please call +977-97426869215.' });
   }
 };
