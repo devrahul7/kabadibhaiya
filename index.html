@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KabadiWala – Scrap Pickup & Prices</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- ── NAVBAR ── -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-brand">
+      <i class="fas fa-recycle"></i>
+      <span>KabadiWala</span>
+    </div>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#prices">Prices</a></li>
+      <li><a href="#schedule">Schedule Pickup</a></li>
+      <li><a href="#how-it-works">How It Works</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- ── HERO ── -->
+  <section class="hero" id="home">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-badge"><i class="fas fa-leaf"></i> Eco-Friendly Recycling</div>
+      <h1>Turn Your <span class="highlight">Scrap</span> Into <span class="highlight">Cash</span></h1>
+      <p>Get the best prices for your kabadi items. Schedule a <strong>FREE</strong> doorstep pickup in minutes.</p>
+      <div class="hero-btns">
+        <a href="#schedule" class="btn btn-primary"><i class="fas fa-truck"></i> Schedule Free Pickup</a>
+        <a href="#prices" class="btn btn-outline"><i class="fas fa-tags"></i> View Prices</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><span>10,000+</span><p>Happy Customers</p></div>
+        <div class="stat"><span>50+</span><p>Cities Covered</p></div>
+        <div class="stat"><span>100%</span><p>Free Pickup</p></div>
+      </div>
+    </div>
+    <div class="hero-image">
+      <div class="floating-card card1"><i class="fas fa-newspaper"></i> Paper – Rs 14/kg</div>
+      <div class="floating-card card2"><i class="fas fa-wine-bottle"></i> Plastic – Rs 10/kg</div>
+      <div class="floating-card card3"><i class="fas fa-cogs"></i> Iron – Rs 25/kg</div>
+    </div>
+  </section>
+
+  <!-- ── HOW IT WORKS ── -->
+  <section class="how-it-works" id="how-it-works">
+    <div class="section-header">
+      <span class="badge">Simple Process</span>
+      <h2>How It Works</h2>
+      <p>Three easy steps to turn your scrap into money</p>
+    </div>
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="step-num">01</div>
+        <div class="step-icon"><i class="fas fa-mobile-alt"></i></div>
+        <h3>Book a Pickup</h3>
+        <p>Fill out the form below with your details and preferred time slot. It's 100% free!</p>
+      </div>
+      <div class="step-arrow"><i class="fas fa-chevron-right"></i></div>
+      <div class="step-card">
+        <div class="step-num">02</div>
+        <div class="step-icon"><i class="fas fa-truck"></i></div>
+        <h3>We Come to You</h3>
+        <p>Our verified kabadiwala arrives at your doorstep at the scheduled time.</p>
+      </div>
+      <div class="step-arrow"><i class="fas fa-chevron-right"></i></div>
+      <div class="step-card">
+        <div class="step-num">03</div>
+        <div class="step-icon"><i class="fas fa-hand-holding-usd"></i></div>
+        <h3>Get Paid Instantly</h3>
+        <p>Your items are weighed and you receive instant payment. Easy!</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── PRICES ── -->
+  <section class="prices" id="prices">
+    <div class="section-header">
+      <span class="badge">Live Rates</span>
+      <h2>Today's Kabadi Prices</h2>
+      <p>Rates updated daily — <span class="update-time" id="updateTime"></span></p>
+    </div>
+
+    <!-- Category Filters -->
+    <div class="filter-tabs">
+      <button class="filter-btn active" data-filter="all">All Items</button>
+      <button class="filter-btn" data-filter="metal">Metal</button>
+      <button class="filter-btn" data-filter="paper">Paper & Cardboard</button>
+      <button class="filter-btn" data-filter="plastic">Plastic</button>
+      <button class="filter-btn" data-filter="electronics">Electronics</button>
+      <button class="filter-btn" data-filter="glass">Glass</button>
+    </div>
+
+    <!-- Price Cards Grid -->
+    <div class="price-grid" id="priceGrid">
+      <!-- Cards injected by JS -->
+    </div>
+
+    <!-- Price Table -->
+    <div class="table-wrapper">
+      <table class="price-table" id="priceTable">
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Category</th>
+            <th>Price (Rs/kg)</th>
+            <th>Trend</th>
+            <th>Notes</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody">
+          <!-- Rows injected by JS -->
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ── SCHEDULE PICKUP ── -->
+  <section class="schedule" id="schedule">
+    <div class="schedule-container">
+      <div class="schedule-info">
+        <span class="badge">100% Free</span>
+        <h2>Schedule Your <span class="highlight">Free Pickup</span></h2>
+        <p>Our team will arrive at your doorstep. No charges, no hidden fees — just instant payment for your kabadi!</p>
+        <ul class="schedule-perks">
+          <li><i class="fas fa-check-circle"></i> Verified kabadiwala agents</li>
+          <li><i class="fas fa-check-circle"></i> Digital weighing scale</li>
+          <li><i class="fas fa-check-circle"></i> Instant cash or UPI payment</li>
+          <li><i class="fas fa-check-circle"></i> Same-day pickup available</li>
+          <li><i class="fas fa-check-circle"></i> Eco-friendly recycling certificate</li>
+        </ul>
+      </div>
+      <div class="schedule-form-card">
+        <h3><i class="fas fa-calendar-check"></i> Book a Pickup</h3>
+        <form id="pickupForm" novalidate>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="fname"><i class="fas fa-user"></i> Full Name *</label>
+              <input type="text" id="fname" placeholder="Your Name" required />
+              <span class="error-msg" id="fnameErr"></span>
+            </div>
+            <div class="form-group">
+              <label for="phone"><i class="fas fa-phone"></i> Phone Number *</label>
+              <input type="tel" id="phone" placeholder="+977-XXXXXXXXXX" required />
+              <span class="error-msg" id="phoneErr"></span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="address"><i class="fas fa-map-marker-alt"></i> Pickup Address *</label>
+            <input type="text" id="address" placeholder="Street, Ward No., City" required />
+            <span class="error-msg" id="addressErr"></span>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="date"><i class="fas fa-calendar"></i> Preferred Date *</label>
+              <input type="date" id="date" required />
+              <span class="error-msg" id="dateErr"></span>
+            </div>
+            <div class="form-group">
+              <label for="time"><i class="fas fa-clock"></i> Preferred Time *</label>
+              <select id="time" required>
+                <option value="">-- Select Time Slot --</option>
+                <option value="9-11">9:00 AM – 11:00 AM</option>
+                <option value="11-1">11:00 AM – 1:00 PM</option>
+                <option value="2-4">2:00 PM – 4:00 PM</option>
+                <option value="4-6">4:00 PM – 6:00 PM</option>
+              </select>
+              <span class="error-msg" id="timeErr"></span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label><i class="fas fa-boxes"></i> Items to Sell (select all that apply)</label>
+            <div class="checkbox-grid">
+              <label class="checkbox-label"><input type="checkbox" value="paper"> Paper / Books</label>
+              <label class="checkbox-label"><input type="checkbox" value="cardboard"> Cardboard</label>
+              <label class="checkbox-label"><input type="checkbox" value="plastic"> Plastic</label>
+              <label class="checkbox-label"><input type="checkbox" value="iron"> Iron / Steel</label>
+              <label class="checkbox-label"><input type="checkbox" value="copper"> Copper / Brass</label>
+              <label class="checkbox-label"><input type="checkbox" value="aluminium"> Aluminium</label>
+              <label class="checkbox-label"><input type="checkbox" value="electronics"> Electronics</label>
+              <label class="checkbox-label"><input type="checkbox" value="glass"> Glass</label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="notes"><i class="fas fa-sticky-note"></i> Additional Notes</label>
+            <textarea id="notes" rows="3" placeholder="Any special instructions or estimated quantity..."></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary btn-full">
+            <i class="fas fa-truck"></i> Schedule FREE Pickup
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CONTACT ── -->
+  <section class="contact" id="contact">
+    <div class="section-header">
+      <span class="badge">Get in Touch</span>
+      <h2>Contact Us</h2>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-card">
+        <i class="fas fa-phone-alt"></i>
+        <h4>Call Us</h4>
+        <p>+977-9800000000</p>
+      </div>
+      <div class="contact-card">
+        <i class="fas fa-envelope"></i>
+        <h4>Email</h4>
+        <p>hello@kabadiwala.com.np</p>
+      </div>
+      <div class="contact-card">
+        <i class="fas fa-map-marker-alt"></i>
+        <h4>Office</h4>
+        <p>Kathmandu, Nepal</p>
+      </div>
+      <div class="contact-card">
+        <i class="fas fa-clock"></i>
+        <h4>Working Hours</h4>
+        <p>Sun – Fri: 9AM – 6PM</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ── -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <i class="fas fa-recycle"></i>
+        <span>KabadiWala</span>
+        <p>Making recycling easy, rewarding, and eco-friendly.</p>
+      </div>
+      <div class="footer-links">
+        <h4>Quick Links</h4>
+        <a href="#home">Home</a>
+        <a href="#prices">Prices</a>
+        <a href="#schedule">Schedule Pickup</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <div class="footer-social">
+        <h4>Follow Us</h4>
+        <div class="social-icons">
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-whatsapp"></i></a>
+          <a href="#"><i class="fab fa-youtube"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 KabadiWala. All rights reserved. Made with <i class="fas fa-heart"></i> for a greener Nepal.</p>
+    </div>
+  </footer>
+
+  <!-- ── CHATBOT ── -->
+  <div class="chatbot-widget" id="chatbotWidget">
+    <div class="chatbot-header" id="chatbotHeader">
+      <div class="chatbot-avatar"><i class="fas fa-robot"></i></div>
+      <div class="chatbot-title">
+        <span>KabadiBot</span>
+        <small><span class="online-dot"></span> Online</small>
+      </div>
+      <button class="chatbot-close" id="chatbotClose" aria-label="Close"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="chatbot-body" id="chatbotBody">
+      <!-- Messages injected by JS -->
+    </div>
+    <div class="chatbot-quick-btns" id="quickBtns">
+      <button class="quick-btn" data-msg="What is the price of iron?">Iron price?</button>
+      <button class="quick-btn" data-msg="How to schedule a pickup?">Schedule pickup</button>
+      <button class="quick-btn" data-msg="What items do you accept?">What items?</button>
+      <button class="quick-btn" data-msg="How will I get paid?">Payment?</button>
+    </div>
+    <div class="chatbot-input-area">
+      <input type="text" id="chatInput" placeholder="Ask me anything..." />
+      <button id="chatSend"><i class="fas fa-paper-plane"></i></button>
+    </div>
+  </div>
+  <button class="chatbot-toggle" id="chatbotToggle" aria-label="Open Chat">
+    <i class="fas fa-comments"></i>
+    <span class="chat-badge">1</span>
+  </button>
+
+  <!-- ── SUCCESS MODAL ── -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal">
+      <div class="modal-icon"><i class="fas fa-check-circle"></i></div>
+      <h3>Pickup Scheduled!</h3>
+      <p id="modalMsg">Your kabadi pickup has been booked successfully. Our agent will contact you shortly.</p>
+      <button class="btn btn-primary" onclick="closeModal()">Great, Thanks!</button>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

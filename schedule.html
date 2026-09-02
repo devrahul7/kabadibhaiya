@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; img-src 'self' data:; font-src 'self' https://cdnjs.cloudflare.com;">
+    <title>Schedule Pickup - KabadiBhaiya</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-brand"><i class="fa-solid fa-recycle"></i> KabadiBhaiya</a>
+            <div class="nav-links">
+                <a href="index.html" data-i18n="nav_home">Home</a>
+                <a href="prices.html" data-i18n="nav_prices">Prices</a>
+                <a href="schedule.html" data-i18n="nav_schedule" class="active">Schedule Pickup</a>
+                <a href="blog.html" data-i18n="nav_blog">Blog</a>
+                <a href="login.html" id="nav-auth-link" data-i18n="nav_login">Login</a>
+                <button id="lang-toggle" class="btn btn-outline">EN/NP</button>
+            </div>
+        </div>
+    </nav>
+
+    <header class="page-hero">
+        <div class="container">
+            <h1 data-i18n="schedule_hero_title">Schedule Free Pickup</h1>
+            <p data-i18n="schedule_hero_sub">Book a convenient time for us to collect your scrap.</p>
+        </div>
+    </header>
+
+    <section class="schedule-section container">
+        <div class="schedule-grid">
+            <div class="schedule-form-container card">
+                <div class="progress-bar-container">
+                    <div class="progress-bar" id="progress-bar"></div>
+                    <div class="progress-steps">
+                        <span class="step active" data-step="1">1</span>
+                        <span class="step" data-step="2">2</span>
+                        <span class="step" data-step="3">3</span>
+                    </div>
+                </div>
+
+                <form id="schedule-form">
+                    <!-- Step 1: Your Info -->
+                    <div class="form-step active" id="step-1">
+                        <h2 data-i18n="step1_title">Your Info</h2>
+                        <div class="form-group">
+                            <label for="fullName" data-i18n="label_fullname">Full Name</label>
+                            <input type="text" id="fullName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone" data-i18n="label_phone">Phone Number</label>
+                            <input type="tel" id="phone" required pattern="[0-9]{10}" placeholder="e.g. 9800000000">
+                        </div>
+                        <div class="form-group">
+                            <label for="email" data-i18n="label_email">Email (optional)</label>
+                            <input type="email" id="email">
+                        </div>
+                        <div class="form-group">
+                            <label for="city" data-i18n="label_city">City</label>
+                            <select id="city" required>
+                                <option value="" disabled selected data-i18n="select_city_placeholder">Select City</option>
+                                <option value="Kathmandu">Kathmandu</option>
+                                <option value="Lalitpur">Lalitpur</option>
+                                <option value="Bhaktapur">Bhaktapur</option>
+                            </select>
+                        </div>
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-primary next-btn" data-i18n="btn_next">Next</button>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Pickup Details -->
+                    <div class="form-step" id="step-2">
+                        <h2 data-i18n="step2_title">Pickup Details</h2>
+                        <div class="form-group">
+                            <label for="address" data-i18n="label_address">Detailed Address</label>
+                            <input type="text" id="address" required placeholder="e.g. Baneshwor, near xyz">
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="pickupDate" data-i18n="label_date">Preferred Date</label>
+                                <input type="date" id="pickupDate" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="pickupTime" data-i18n="label_time">Time Slot</label>
+                                <select id="pickupTime" required>
+                                    <option value="09:00-11:00">09:00 AM - 11:00 AM</option>
+                                    <option value="11:00-13:00">11:00 AM - 01:00 PM</option>
+                                    <option value="13:00-15:00">01:00 PM - 03:00 PM</option>
+                                    <option value="15:00-17:00">03:00 PM - 05:00 PM</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label data-i18n="label_items">Items to Pickup</label>
+                            <div class="checkbox-grid">
+                                <label><input type="checkbox" name="items" value="Paper"> <span data-i18n="item_paper">Paper</span></label>
+                                <label><input type="checkbox" name="items" value="Cardboard"> <span data-i18n="item_cardboard">Cardboard</span></label>
+                                <label><input type="checkbox" name="items" value="Plastic"> <span data-i18n="item_plastic">Plastic</span></label>
+                                <label><input type="checkbox" name="items" value="Iron"> <span data-i18n="item_iron">Iron</span></label>
+                                <label><input type="checkbox" name="items" value="Copper"> <span data-i18n="item_copper">Copper</span></label>
+                                <label><input type="checkbox" name="items" value="Aluminium"> <span data-i18n="item_aluminium">Aluminium</span></label>
+                                <label><input type="checkbox" name="items" value="Electronics"> <span data-i18n="item_electronics">Electronics</span></label>
+                                <label><input type="checkbox" name="items" value="Glass"> <span data-i18n="item_glass">Glass</span></label>
+                                <label><input type="checkbox" name="items" value="Other"> <span data-i18n="item_other">Other</span></label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="weight" data-i18n="label_weight">Estimated Weight</label>
+                            <select id="weight" required>
+                                <option value="<10kg">Less than 10 kg</option>
+                                <option value="10-50kg">10 - 50 kg</option>
+                                <option value="50-100kg">50 - 100 kg</option>
+                                <option value=">100kg">More than 100 kg</option>
+                            </select>
+                        </div>
+                        <div class="form-actions space-between">
+                            <button type="button" class="btn btn-outline prev-btn" data-i18n="btn_back">Back</button>
+                            <button type="button" class="btn btn-primary next-btn" data-i18n="btn_next">Next</button>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Confirm -->
+                    <div class="form-step" id="step-3">
+                        <h2 data-i18n="step3_title">Confirm Booking</h2>
+                        <div class="summary-box">
+                            <p><strong>Name:</strong> <span id="summary-name"></span></p>
+                            <p><strong>Phone:</strong> <span id="summary-phone"></span></p>
+                            <p><strong>Location:</strong> <span id="summary-location"></span></p>
+                            <p><strong>Date & Time:</strong> <span id="summary-datetime"></span></p>
+                            <p><strong>Items:</strong> <span id="summary-items"></span></p>
+                            <p><strong>Weight:</strong> <span id="summary-weight"></span></p>
+                        </div>
+                        
+                        <div class="quick-book-actions">
+                            <p data-i18n="quick_book_whatsapp">Don't want to fill form? Chat on WhatsApp</p>
+                            <a href="#" id="wa-btn" class="btn btn-whatsapp" target="_blank"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
+                            <a href="#" id="viber-btn" class="btn btn-viber" target="_blank"><i class="fa-brands fa-viber"></i> Viber</a>
+                        </div>
+
+                        <div class="form-actions space-between">
+                            <button type="button" class="btn btn-outline prev-btn" data-i18n="btn_back">Back</button>
+                            <button type="submit" class="btn btn-primary" id="confirm-btn" data-i18n="btn_confirm">Confirm & Book</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="schedule-sidebar">
+                <div class="perks-card card">
+                    <h3 data-i18n="why_choose_us">Why Choose Us?</h3>
+                    <ul class="perks-list">
+                        <li><i class="fa-solid fa-truck-fast"></i> <span data-i18n="perk_fast">Fast & Free Pickup</span></li>
+                        <li><i class="fa-solid fa-scale-balanced"></i> <span data-i18n="perk_weigh">Accurate Digital Weighing</span></li>
+                        <li><i class="fa-solid fa-money-bill-wave"></i> <span data-i18n="perk_cash">Instant Cash/Wallet Payment</span></li>
+                        <li><i class="fa-solid fa-leaf"></i> <span data-i18n="perk_eco">Eco-friendly Disposal</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Success Modal -->
+    <div id="success-modal" class="modal">
+        <div class="modal-content text-center">
+            <i class="fa-regular fa-circle-check fa-4x" style="color: #27ae60; margin-bottom: 1rem;"></i>
+            <h2 data-i18n="booking_success">Booking Confirmed!</h2>
+            <p data-i18n="booking_ref">Your booking reference is:</p>
+            <h3 id="booking-id-display">KB-XXXXXX</h3>
+            <p data-i18n="booking_success_msg">Our team will contact you shortly to confirm the pickup.</p>
+            <div style="margin-top: 1.5rem;">
+                <a href="index.html" class="btn btn-outline" data-i18n="nav_home">Back to Home</a>
+                <a href="dashboard.html" class="btn btn-primary" id="dashboard-btn" style="display:none;" data-i18n="nav_dashboard">View in Dashboard</a>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container footer-content">
+            <div>
+                <h3><i class="fa-solid fa-recycle"></i> KabadiBhaiya</h3>
+                <p>Smart scrap recycling in Nepal.</p>
+            </div>
+            <div>
+                <h4>Links</h4>
+                <ul>
+                    <li><a href="prices.html">Prices</a></li>
+                    <li><a href="schedule.html">Schedule</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Contact</h4>
+                <p>Sun–Fri 9AM–6PM</p>
+                <p>+977-9800000000</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
+                    <a href="#"><i class="fa-brands fa-viber"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="js/translations.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/schedule.js"></script>
+</body>
+</html>
