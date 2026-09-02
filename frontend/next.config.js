@@ -21,12 +21,6 @@ const nextConfig = {
       },
     ];
   },
-
-  // Turbopack alias config (Next.js 16+)
-  turbopack: {
-    resolveAlias: {
-      '@': path.resolve(__dirname),
-    },
-  },
 };
 module.exports = nextConfig;
+
